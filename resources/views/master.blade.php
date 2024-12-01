@@ -7,6 +7,8 @@
     <meta name="description" content="Sistem Manajemen Inventori - Platform pengelolaan inventori yang efisien">
     <meta name="author" content="Your Name">
     <title>@yield('title', 'Manajemen Inventori')</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
     
     <!-- CSS Styles -->
     <style>
@@ -55,15 +57,28 @@
 
         /* Sidebar Styles */
         .sidebar {
-            width: 250px;
-            background: var(--primary-color);
-            color: var(--text-light);
-            display: flex;
-            flex-direction: column;
-            padding: 1.5rem;
-            transition: var(--transition);
-        }
+    position: fixed; /* Membuat sidebar tetap di tempat */
+    top: 0;
+    left: 0;
+    height: 100vh; /* Sidebar mengambil seluruh tinggi viewport */
+    width: 250px; /* Lebar sidebar */
+    background: var(--primary-color);
+    color: var(--text-light);
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    transition: var(--transition);
+    overflow-y: auto; /* Menambahkan scroll di dalam sidebar jika konten terlalu panjang */
+    z-index: 1000; /* Memastikan sidebar di atas elemen lain */
+}
 
+.content {
+    margin-left: 250px; /* Menggeser konten agar tidak bertumpuk dengan sidebar */
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+                    
         .sidebar .title {
             font-size: 1.25rem;
             font-weight: bold;
@@ -93,6 +108,46 @@
             background: var(--accent-color);
             font-weight: 600;
         }
+
+        /* Gaya umum untuk ikon */
+.sidebar a::before {
+    content: ''; /* Akan diubah dengan Unicode ikon */
+    display: inline-block;
+    margin-right: 0.75rem;
+    font-family: 'Font Awesome 5 Free'; /* Jika menggunakan Font Awesome */
+    font-weight: 900; /* Berat ikon */
+    font-size: 1.2rem;
+    color: var(--text-light);
+    transition: var(--transition);
+}
+
+/* Ikon untuk setiap menu */
+.sidebar a[href*="/dashboard"]::before {
+    content: '\f0e4'; /* Dashboard Icon (Font Awesome Unicode) */
+}
+
+.sidebar a[href*="/user"]::before {
+    content: '\f007'; /* User Icon */
+}
+
+.sidebar a[href*="/katagori"]::before {
+    content: '\f03a'; /* Categories Icon */
+}
+
+.sidebar a[href*="/barang"]::before {
+    content: '\f187'; /* Box/Inventory Icon */
+}
+
+.sidebar a[href*="/laporan"]::before {
+    content: '\f15c'; /* File Report Icon */
+}
+        
+/* Warna ikon saat aktif atau hover */
+.sidebar a.active::before,
+.sidebar a:hover::before {
+    color: var(--accent-color);
+}
+
 
         /* Content Area */
         .content {
